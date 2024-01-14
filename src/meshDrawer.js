@@ -72,12 +72,12 @@ class MeshDrawer {
 		gl.enableVertexAttribArray(this.normalLoc);
 		// // vertex texture coordinates
 		gl.bindBuffer(gl.ARRAY_BUFFER, this.texcoordBuffer);
-		gl.vertexAttribPointer(this.texCoordLoc, 2, gl.FLOAT,false, 0, 0);
+		gl.vertexAttribPointer(this.texCoordLoc, 2, gl.FLOAT, false, 0, 0);
 		gl.enableVertexAttribArray(this.texCoordLoc);
 
 		gl.drawArrays(gl.TRIANGLES, 0, this.numTriangles);
 
-		
+
 	}
 
 	// This method is called to set the texture of the mesh.
@@ -171,7 +171,11 @@ void main()
 	// PLEASE DO NOT CHANGE ANYTHING ABOVE !!!
 	// Calculate the diffuse and specular lighting below.
 
-
+	diff = max(dot(normal, lightdir), 0.0);
+	
+	vec3 viewDirection = normalize(-fragPos);
+	vec3 reflectDirection = reflect(-lightdir, normal);
+	spec = pow(max(dot(viewDirection, reflectDirection), 0.0), phongExp);
 
 	// PLEASE DO NOT CHANGE ANYTHING BELOW !!!
 	/////////////////////////////////////////////////////////////////////////////
